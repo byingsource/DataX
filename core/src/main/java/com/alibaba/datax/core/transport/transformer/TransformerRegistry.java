@@ -6,6 +6,7 @@ import com.alibaba.datax.core.util.container.CoreConstant;
 import com.alibaba.datax.core.util.container.JarLoader;
 import com.alibaba.datax.transformer.ComplexTransformer;
 import com.alibaba.datax.transformer.Transformer;
+import com.alibaba.datax.transport.transformer.BlobToDecimalTransform;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,8 @@ public class TransformerRegistry {
         registTransformer(new ReplaceTransformer());
         registTransformer(new FilterTransformer());
         registTransformer(new GroovyTransformer());
+
+        registTransformer(new BlobToDecimalTransform());
     }
 
     public static void loadTransformerFromLocalStorage() {

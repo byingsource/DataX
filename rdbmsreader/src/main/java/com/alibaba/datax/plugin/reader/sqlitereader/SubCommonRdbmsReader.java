@@ -1,4 +1,4 @@
-package com.alibaba.datax.plugin.reader.rdbmsreader;
+package com.alibaba.datax.plugin.reader.sqlitereader;
 
 import com.alibaba.datax.common.element.BoolColumn;
 import com.alibaba.datax.common.element.BytesColumn;

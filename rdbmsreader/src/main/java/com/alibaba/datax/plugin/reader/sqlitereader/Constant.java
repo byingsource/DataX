@@ -1,4 +1,4 @@
-package com.alibaba.datax.plugin.reader.rdbmsreader;
+package com.alibaba.datax.plugin.reader.sqlitereader;
 
 public class Constant {
 

@@ -8,6 +8,8 @@ import com.alibaba.druid.sql.parser.SQLParserUtils;
 import com.alibaba.druid.sql.parser.SQLStatementParser;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
+import org.apache.commons.io.FileSystemUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
@@ -356,7 +358,14 @@ public final class DBUtil {
 
     private static synchronized Connection connect(DataBaseType dataBaseType,
                                                    String url, String user, String pass, String socketTimeout) {
-
+        if (dataBaseType == DataBaseType.Sqlite) {
+            if (new File(url.replace("jdbc:sqlite:", "")).exists()) {
+                Properties prop = new Properties();
+                prop.put("user", user);
+                prop.put("password", pass);
+                return connect(dataBaseType, url, prop);
+            }
+        }
         //ob10的处理
         if (url.startsWith(com.alibaba.datax.plugin.rdbms.writer.Constant.OB10_SPLIT_STRING)) {
             String[] ss = url.split(com.alibaba.datax.plugin.rdbms.writer.Constant.OB10_SPLIT_STRING_PATTERN);
@@ -387,8 +396,10 @@ public final class DBUtil {
     private static synchronized Connection connect(DataBaseType dataBaseType,
                                                    String url, Properties prop) {
         try {
-            Class.forName(dataBaseType.getDriverClassName());
-            DriverManager.setLoginTimeout(Constant.TIMEOUT_SECONDS);
+            if (StringUtils.isNotBlank(dataBaseType.getDriverClassName())) {
+                Class.forName(dataBaseType.getDriverClassName());
+                DriverManager.setLoginTimeout(Constant.TIMEOUT_SECONDS);
+            }
             return DriverManager.getConnection(url, prop);
         } catch (Exception e) {
             throw RdbmsException.asConnException(dataBaseType, e, prop.getProperty("user"), null);

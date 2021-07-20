@@ -70,6 +70,7 @@
         <module>cassandrareader</module>
         <module>gdbreader</module>
         <module>oceanbasev10reader</module>
+        <module>sqlitereader</module>
 
         <!-- writer -->
         <module>mysqlwriter</module>
@@ -99,7 +100,7 @@
         <module>gdbwriter</module>
         <module>cassandrawriter</module>
         <module>clickhousewriter</module>
-        <module>oscarwriter</module>
+<!--        <module>oscarwriter</module> cannot support -->
         <module>oceanbasev10writer</module>
         <!-- common support module -->
         <module>plugin-rdbms-util</module>
@@ -107,6 +108,8 @@
         <module>hbase20xsqlreader</module>
         <module>hbase20xsqlwriter</module>
         <module>kuduwriter</module>
+
+        <module>dataxtester</module>
     </modules>
 
     <dependencyManagement>

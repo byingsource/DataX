@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
  */
 public enum DataBaseType {
     MySql("mysql", "com.mysql.jdbc.Driver"),
+    MySql8("mysql", "com.mysql.cj.jdbc.Driver"),
     Tddl("mysql", "com.mysql.jdbc.Driver"),
     DRDS("drds", "com.mysql.jdbc.Driver"),
     Oracle("oracle", "oracle.jdbc.OracleDriver"),
@@ -22,7 +23,8 @@ public enum DataBaseType {
     ClickHouse("clickhouse", "ru.yandex.clickhouse.ClickHouseDriver"),
     KingbaseES("kingbasees", "com.kingbase8.Driver"),
     Oscar("oscar", "com.oscar.Driver"),
-    OceanBase("oceanbase", "com.alipay.oceanbase.jdbc.Driver");
+    OceanBase("oceanbase", "com.alipay.oceanbase.jdbc.Driver"),
+    Sqlite("sqlite", "");
 
 
     private String typeName;
@@ -66,6 +68,8 @@ public enum DataBaseType {
             case KingbaseES:
                 break;
             case Oscar:
+                break;
+            case Sqlite:
                 break;
             default:
                 throw DataXException.asDataXException(DBUtilErrorCode.UNSUPPORTED_TYPE, "unsupported database type.");
@@ -118,6 +122,8 @@ public enum DataBaseType {
                     result = jdbc + "?" + suffix;
                 }
                 break;
+            case Sqlite:
+                break;
             default:
                 throw DataXException.asDataXException(DBUtilErrorCode.UNSUPPORTED_TYPE, "unsupported database type.");
         }
@@ -144,6 +150,7 @@ public enum DataBaseType {
             case PostgreSQL:
             case KingbaseES:
             case Oscar:
+            case Sqlite:
                 break;
             default:
                 throw DataXException.asDataXException(DBUtilErrorCode.UNSUPPORTED_TYPE, "unsupported database type.");
@@ -169,6 +176,7 @@ public enum DataBaseType {
             case PostgreSQL:
             case KingbaseES:
             case Oscar:
+            case Sqlite:
                 break;
             default:
                 throw DataXException.asDataXException(DBUtilErrorCode.UNSUPPORTED_TYPE, "unsupported database type");
@@ -195,6 +203,7 @@ public enum DataBaseType {
             case KingbaseES:
                 break;
             case Oscar:
+            case Sqlite:
                 break;
             default:
                 throw DataXException.asDataXException(DBUtilErrorCode.UNSUPPORTED_TYPE, "unsupported database type");
